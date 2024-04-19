@@ -10,6 +10,9 @@
 
 Image2ASCII is a library that converts images into ASCII images and provides command-line tools for easy use.
 
+This is a simple fork of the original project with a mod file and a minor change to allow fetching of images when you 
+provide a URL instead of a file path. 
+
 ![demo](https://github.com/modeledge/image2ascii-lib/blob/master/docs/images/lufei.gif?raw=true)
 
 ## Installation
