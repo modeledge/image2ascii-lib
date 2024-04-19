@@ -1,8 +1,8 @@
 package convert
 
 import (
+	"github.com/modeledge/image2ascii-lib/terminal"
 	"github.com/nfnt/resize"
-	"github.com/qeesung/image2ascii/terminal"
 	"image"
 	"log"
 )

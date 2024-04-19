@@ -4,7 +4,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"github.com/qeesung/image2ascii/convert"
+	"github.com/modeledge/image2ascii-lib/convert"
 	_ "image/jpeg"
 	_ "image/png"
 	"os"
@@ -86,8 +86,8 @@ func parseOptions() (*convert.Options, error) {
 
 func usage() {
 	fmt.Fprintf(os.Stderr, `image2ascii version: image2ascii/1.0.0 
->> HomePage: https://github.com/qeesung/image2ascii
->> Issue   : https://github.com/qeesung/image2ascii/issues
+>> HomePage: https://github.com/modeledge/image2ascii-lib
+>> Issue   : https://github.com/modeledge/image2ascii-lib/issues
 >> Author  : qeesung
 Usage: image2ascii [-s] -f <filename> -r <ratio> -w <width> -g <height>
 

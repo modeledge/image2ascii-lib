@@ -3,9 +3,13 @@ package convert
 
 import (
 	"bytes"
-	"github.com/qeesung/image2ascii/ascii"
+	"fmt"
+	"github.com/modeledge/image2ascii-lib/ascii"
 	"image"
 	"image/color"
+	"net/http"
+	"net/url"
+
 	// Support decode jpeg image
 	_ "image/jpeg"
 	// Support deocde the png image
@@ -147,6 +151,10 @@ func (converter *ImageConverter) ImageFile2ASCIIString(imageFilename string, opt
 
 // OpenImageFile open a image and return a image object
 func OpenImageFile(imageFilename string) (image.Image, error) {
+	if isValidURL(imageFilename) {
+		return OpenImageFileFromURL(imageFilename)
+	}
+
 	f, err := os.Open(imageFilename)
 	if err != nil {
 		return nil, err
@@ -159,4 +167,30 @@ func OpenImageFile(imageFilename string) (image.Image, error) {
 
 	defer f.Close()
 	return img, nil
+}
+
+// OpenImageFileFromURL open a image from a url and return a image object
+func OpenImageFileFromURL(url string) (image.Image, error) {
+	resp, err := http.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("failed to fetch image: %s", resp.Status)
+	}
+
+	img, _, err := image.Decode(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return img, nil
+}
+
+// isValidURL check if the given string is a valid URL
+func isValidURL(rawURL string) bool {
+	_, err := url.Parse(rawURL)
+	return err == nil
 }
